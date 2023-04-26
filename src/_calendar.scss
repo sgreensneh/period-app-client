@@ -44,7 +44,8 @@
    } */
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background: #f8f8fa !important;
+  //background: #f8f8fa !important;
+  opacity: 0.7;
   color: var(--primary-color);
   border-radius: 3px;
 }

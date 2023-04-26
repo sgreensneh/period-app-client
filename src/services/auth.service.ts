@@ -3,6 +3,8 @@ import {ILogin, ISignup, IUserDetails} from "../types/auth.types";
 import store from "../redux/store";
 import {authActions} from "../redux/slices/authSlice";
 import {AxiosResponse} from "axios";
+import isEmpty from "is-empty";
+import {flowActions} from "../redux/slices/flowSlice";
 
 class AuthService {
   public login(data: ILogin) {
@@ -48,6 +50,25 @@ class AuthService {
           reject(e);
         })
     })
+  }
+
+  public logout(){
+    store.dispatch(authActions.logout());
+    store.dispatch(flowActions.clearFlows());
+    setAuthToken();
+  }
+
+  public async reAuthenticate() {
+    try {
+      const token = store.getState().auth?.token;
+      if (!isEmpty(token)) {
+        await this.completeLogin(token);
+      } else {
+        this.logout();
+      }
+    } catch (e: any) {
+      this.logout();
+    }
   }
 }
 

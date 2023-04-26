@@ -3,6 +3,7 @@ import {encryptTransform} from "redux-persist-transform-encrypt";
 import {persistReducer, persistStore} from "redux-persist";
 import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import authSlice, {IAuthSlice} from "./slices/authSlice";
+import flowSlice, {IFlowSlice} from "./slices/flowSlice";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, combineReducers({
   auth: authSlice.reducer,
+  flow: flowSlice.reducer,
 }));
 
 const store = configureStore({
@@ -28,6 +30,7 @@ const store = configureStore({
 
 export type RootState = {
   auth: IAuthSlice,
+  flow: IFlowSlice,
 };
 export type AppDispatch = typeof store.dispatch;
 export const persistor = persistStore(store);
