@@ -19,9 +19,9 @@ class FlowService {
     store.dispatch(flowActions.clearFlows());
   }
 
-  public getFlowDates(flows: IFlow[]) {
-    return Array.from(flows, (flow) => flow.flowDate);
-  }
+  // public getFlowDates(flows: IFlow[]) {
+  //   return Array.from(flows, (flow) => flow.flowDate);
+  // }
 
   public getOvulations(flows: IFlow[]) {
     let ovulations: IOvulation[] = [];
@@ -51,6 +51,16 @@ class FlowService {
       safePeriods = [...safePeriods, ...flow.safePeriod];
     }
     return safePeriods;
+  }
+
+  public getFlowDates(flows: IFlow[]) {
+    let flowDates: Date[] = [];
+
+    for (let i = 0; i < flows.length; i++) {
+      const flow = flows[i];
+      flowDates = [...flowDates, ...flow.flowDates];
+    }
+    return flowDates;
   }
 
   public chanceToColor(chance: IChance) {

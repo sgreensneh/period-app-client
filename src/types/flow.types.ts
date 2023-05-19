@@ -1,5 +1,5 @@
 export interface IFlow {
-  "flowDate": Date,
+  "flowDates": Date[],
   "ovulation": IOvulation[],
   "fertilePeriods": Date[],
   "safePeriod": Date[]

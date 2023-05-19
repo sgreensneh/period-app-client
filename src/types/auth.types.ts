@@ -3,6 +3,7 @@ export interface ISignup {
   username: string,
   password: string,
   cycleLength: number,
+  flowLength: number,
   firstFlow: Date,
 }
 

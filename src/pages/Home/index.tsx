@@ -5,12 +5,13 @@ import {useAppSelector} from "../../redux/hooks";
 import flowService from "../../services/flow.service";
 import {Link} from "react-router-dom";
 import authService from "../../services/auth.service";
+import {format} from "date-fns";
 
 function HomePage() {
 
   const {
     flow: {
-      flows, isLoaded, isLoading
+      flows, isLoaded
     }, auth: {userDetails}
   } = useAppSelector(state => state);
 
@@ -71,6 +72,7 @@ function HomePage() {
         return null;
       }
     },
+    // eslint-disable-next-line
     [flowsString]
   );
 
@@ -79,17 +81,50 @@ function HomePage() {
       <div className="md:w-[90%] max-w-[1440px] mx-auto p-5">
         <div className="flex justify-between">
           <h3>Hi, {userDetails?.fullName}</h3>
-          <p>
-            <Link to="" onClick={(e) => {
-              e.preventDefault();
-              authService.logout();
-            }
-            }>Logout</Link>
-          </p>
+          <div className="text-right">
+            <p>
+              <Link to="" onClick={(e) => {
+                e.preventDefault();
+                authService.logout();
+              }
+              }>Logout</Link>
+            </p>
+            <p>
+              Last remembered period: {" "}
+              {!!userDetails?.flow.lastFlow && format(new Date(userDetails?.flow.lastFlow), "dd" +
+                " MMM, yyyy")}
+            </p>
+          </div>
         </div>
 
         <div className="mt-5">
           <Calendar tileClassName={tileClassName}/>
+        </div>
+        <div className="grid grid-cols-[minmax(0,20px)_minmax(0,1fr)] gap-2 bg-white p-5 mt-5">
+          <div>
+            <div className="aspect-square bg-red-500"></div>
+          </div>
+          <div>
+            <p>Flow dates</p>
+          </div>
+          <div>
+            <div className="aspect-square bg-green-200"></div>
+          </div>
+          <div>
+            <p>Safe periods</p>
+          </div>
+          <div>
+            <div className="aspect-square bg-purple-500"></div>
+          </div>
+          <div>
+            <p>Ovulation dates</p>
+          </div>
+          <div>
+            <div className="aspect-square bg-purple-200"></div>
+          </div>
+          <div>
+            <p>Fertile periods</p>
+          </div>
         </div>
       </div>
     </div>

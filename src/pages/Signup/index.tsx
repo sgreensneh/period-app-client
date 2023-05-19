@@ -17,11 +17,17 @@ function SignupPage() {
       .min(18, "Cannot be less than 18")
       .max(40, "Cannot be more than 40")
       .required("Required"),
+    flowLength: yup.number()
+      .typeError("Invalid number")
+      .min(1, "Cannot be less than 1")
+      .max(10, "Cannot be more than 10")
+      .required("Required"),
     firstFlow: yup.date().required("Required"),
   });
 
   const initialValues: ISignup = {
     cycleLength: 0,
+    flowLength: 0,
     firstFlow: new Date(),
     fullName: "",
     password: "",
@@ -98,18 +104,31 @@ function SignupPage() {
                   </Field>
                 </div>
                 <div className="">
-                  <Field name="firstFlow">
+                  <Field name="flowLength">
                     {({field, meta}: FieldProps) => (
                       <Input
-                        label="Last Flow"
-                        placeholder="Last Flow"
-                        type="date"
+                        label="Flow length"
+                        placeholder="Flow length"
                         error={meta.touched && meta.error ? meta.error : ""}
                         {...field}
                       />
                     )}
                   </Field>
                 </div>
+              </div>
+
+              <div className="mt-5">
+                <Field name="firstFlow">
+                  {({field, meta}: FieldProps) => (
+                    <Input
+                      label="Last Flow"
+                      placeholder="Last Flow"
+                      type="date"
+                      error={meta.touched && meta.error ? meta.error : ""}
+                      {...field}
+                    />
+                  )}
+                </Field>
               </div>
 
               <div className="mt-5">
