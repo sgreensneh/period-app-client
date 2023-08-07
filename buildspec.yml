@@ -4,7 +4,7 @@ env:
     S3_ENVIRONMENT_BUCKET: "period-app-api"
     Project: "frontend"
     Service: "service"
-    ENVIRONMENT_FILE: "period-app-env"
+    ENVIRONMENT_FILE: "period-app"
 phases:
   install:
     commands:
