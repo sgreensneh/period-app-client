@@ -22,6 +22,11 @@ jobs:
         run: npm install
 
       - name: Build React Application
+        env: 
+          PORT: ${{secrets.PORT}}
+          REACT_APP_API: ${{secrets.REACT_APP_API}}
+          REACT_APP_REDUX_SECRET_KEY: ${{secrets.REACT_APP_REDUX_SECRET_KEY}}
+          
         run: npm run build
 
       - name: Deploy to S3
@@ -29,9 +34,6 @@ jobs:
         with:
           args: --follow-symlinks --delete
         env: 
-          PORT: ${{secrets.PORT}}
-          REACT_APP_API: ${{secrets.REACT_APP_API}}
-          REACT_APP_REDUX_SECRET_KEY: ${{secrets.REACT_APP_REDUX_SECRET_KEY}}
           AWS_S3_BUCKET: period-app-gh
           AWS_REGION: us-west-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
