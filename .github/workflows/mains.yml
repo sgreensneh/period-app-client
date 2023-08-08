@@ -28,7 +28,10 @@ jobs:
         uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks --delete
-        env:
+        env: 
+          PORT: ${{secrets.PORT}}
+          REACT_APP_API: ${{secrets.REACT_APP_API}}
+          REACT_APP_REDUX_SECRET_KEY: ${{secrets.REACT_APP_REDUX_SECRET_KEY}}
           AWS_S3_BUCKET: period-app-gh
           AWS_REGION: us-west-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
